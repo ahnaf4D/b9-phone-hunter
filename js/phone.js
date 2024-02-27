@@ -10,8 +10,22 @@ function displayPhones(phones) {
     const phoneContainer = document.getElementById('phone-container');
     // Remove Existing Dynamic Card
     phoneContainer.textContent = ' ';
+    const showAllContainer = document.getElementById('show-all-container');
+    if (phones.length > 12) {
+        showAllContainer.classList.remove(`hidden`);
+    }
+    else{
+        showAllContainer.classList.add(`hidden`);
+        
+    }
+    // ============================
+    // Cannot show 8 items data
+    // console.log(phones.slice(0,5));
+    phones.slice(0, 5)
+    // =============================
+
     phones.forEach(element => {
-        console.log(element);
+        // console.log(element);
         // Create div
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card p-4 bg-gray-100 shadow-xl`
