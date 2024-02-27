@@ -68,10 +68,7 @@ const showPhoneDetails = (phone) => {
         <p><span>Chipset : ${phone?.mainFeatures.chipSet}</span></p>
         <p><span>Memory: ${phone?.mainFeatures.memory}</span></p>
         <p><span>Release Date: ${phone?.releaseDate}</span></p>
-        <p><span>GPS: ${phone?.others?.GPS}</span></p>
-        
-        
-        `
+        <p><span>GPS: ${phone?.others?.GPS || 'No GPS available in this device'}</span></p>`
     // Show the modal
     show_details_modal.showModal();
 }
