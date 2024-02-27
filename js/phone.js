@@ -18,7 +18,7 @@ function displayPhones(phones, isShowAll) {
         showAllContainer.classList.add(`hidden`);
 
     }
-    console.log('is show all', isShowAll);
+    // console.log('is show all', isShowAll);
     // Display only first 12 phones if not show All
     if (!isShowAll) {
 
@@ -36,7 +36,7 @@ function displayPhones(phones, isShowAll) {
           <h2 class="card-title">${element.phone_name}</h2>
           <p>If a dog chews shoes whose shoes does he choose?</p>
           <div class="card-actions justify-center">
-            <button onclick="handleShowDetail('${element.slug}')" class="btn btn-primary">Show Details</button>
+            <button onclick="handleShowDetail('${element.slug}'); show_details_modal.showModal()" class="btn btn-primary">Show Details</button>
           </div>
         </div>
         `
@@ -46,20 +46,41 @@ function displayPhones(phones, isShowAll) {
     // hide loading spinner
     toggleLoadingSpinner(false);
 }
-const handleShowDetail = async(id) => {
-    console.log('Click Show Details',id);
+const handleShowDetail = async (id) => {
+    // console.log('Click Show Details', id);
     // Load Single Phone Data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     // console.log()
     const data = await res.json();
-    console.log(data);
+    const phone = data.data;
+    // display phone details on modal
+    showPhoneDetails(phone);
+}
+const showPhoneDetails = (phone) => {
+    console.log(phone)
+    const phoneName = document.getElementById('show-detail-phone-name');
+    phoneName.innerText = phone.name;
+    const showDetailContainer = document.getElementById('show-detail-container');
+    showDetailContainer.innerHTML = `
+        <img src = "${phone.image}">
+        <p><span>Storage : ${phone?.mainFeatures.storage}</span></p>
+        <p><span>Display Size : ${phone?.mainFeatures.displaySize}</span></p>
+        <p><span>Chipset : ${phone?.mainFeatures.chipSet}</span></p>
+        <p><span>Memory: ${phone?.mainFeatures.memory}</span></p>
+        <p><span>Release Date: ${phone?.releaseDate}</span></p>
+        <p><span>GPS: ${phone?.others?.GPS}</span></p>
+        
+        
+        `
+    // Show the modal
+    show_details_modal.showModal();
 }
 // handle search button
 const handleSearch = (isShowAll) => {
     toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    console.log(searchText);
+    // console.log(searchText);
     loadPhone(searchText, isShowAll);
 }
 const toggleLoadingSpinner = (isLoading) => {
@@ -76,4 +97,3 @@ const toggleLoadingSpinner = (isLoading) => {
 const handleShowAll = () => {
     handleSearch(true);
 }
-loadPhone();
