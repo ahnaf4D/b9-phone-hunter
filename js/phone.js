@@ -14,15 +14,11 @@ function displayPhones(phones) {
     if (phones.length > 12) {
         showAllContainer.classList.remove(`hidden`);
     }
-    else{
+    else {
         showAllContainer.classList.add(`hidden`);
-        
+
     }
-    // ============================
-    // Cannot show 8 items data
-    // console.log(phones.slice(0,5));
-    phones.slice(0, 5)
-    // =============================
+    phones = phones.slice(0, 5)
 
     phones.forEach(element => {
         // console.log(element);
